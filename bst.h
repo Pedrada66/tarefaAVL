@@ -31,7 +31,9 @@ void imprimeEmOrdem (Tree t, link h);
 void imprimePosOrdem (Tree t, link h);
 void imprimePreOrdem (Tree t, link h, int k);
 
-link AVLinsert (Tree t,link h, int item);
+link AVLinsertR (Tree t,link h, int item); // funcao padrao
+link AVLinsert (Tree t, int item); // nova funcao
+
 
 void imprime(Tree a, char *s);
  

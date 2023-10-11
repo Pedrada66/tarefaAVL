@@ -87,7 +87,8 @@ void imprimePosOrdem (Tree t, link h){
 }
 void imprimePreOrdem (Tree t, link h, int k) {
   if(h == t->z) return;
-  for(int i = 0; i <= k; i++)
+  int i; //mudanca
+  for(i = 0; i <= k; i++)
     printf (" . ");
   printf("<chave: %d N: %d>\n", h->item, h->N); 
   imprimePreOrdem (t, h->l, k + 1); 
@@ -139,10 +140,49 @@ void imprimeFromNode(Tree a, link h, char *s) {
   printf("}\n");
 }
 
-link AVLinsertR (Tree t, link h, int item){
-  // Implemente o AVL insert, faça as modificações necessárias no código
-  return NULL;
+link AVLinsertR(Tree t, link h, int item){
+    if (h == t->z) {
+    return novoNo(item, t->z, t->z);
+  }
+
+  if (item < h->item) {
+    h->l = AVLinsertR(t, h->l, item);
+  } else {
+    h->r = AVLinsertR(t, h->r, item);
+  }
+
+  // Atualize a altura (N) do nó corrente
+  h->N = 1 + ((h->l->N > h->r->N) ? h->l->N : h->r->N);
+
+  // Verifique o fator de equilíbrio do nó
+  int balance = h->l->N - h->r->N;
+
+  // Realize as rotações necessárias para manter o equilíbrio da árvore
+  if (balance > 1) {
+    if (item < h->l->item) {
+      // Rotação simples direita
+      return rotR(t, h);
+    } else {
+      // Rotação dupla esquerda-direita
+      h->l = rotL(t, h->l);
+      return rotR(t, h);
+    }
+  } else if (balance < -1) {
+    if (item > h->r->item) {
+      // Rotação simples esquerda
+      return rotL(t, h);
+    } else {
+      // Rotação dupla direita-esquerda
+      h->r = rotR(t, h->r);
+      return rotL(t, h);
+    }
+  }
+  return h;
 }
 
-
+// nova funcao
+link AVLinsert(Tree t, int item) {
+  t->head = AVLinsertR(t, t->head, item);
+  return t->head;
+}
 
