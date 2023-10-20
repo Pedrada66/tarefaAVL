@@ -5,11 +5,11 @@
 int main () {
   Tree t = createTree();
   link x;
-  insert(t, 99);
-  insert(t, 88);
-  insert(t, 77);
-  //insert(t, 66);
-  AVLinsert(t, 66);
+  AVLinsert(t, 10);
+  AVLinsert(t, 4);
+  AVLinsert(t, 20);
+  AVLinsert(t, 11); 
+  AVLinsert(t, 14);
   
   // Reduzir os varios imprime a somente um
   imprime(t, "oi");
